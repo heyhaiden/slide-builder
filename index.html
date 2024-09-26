@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Card/Slide Builder</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>HTML Slide Builder</h1>
+
+    <div class="container">
+        <!-- Form Column -->
+        <div class="form-column">
+            <div class="form-group">
+                <label>Banner Title:</label>
+                <input type="text" id="bannerTitle" oninput="generateCard()" placeholder="Enter Banner Title">
+            </div>
+            <div class="form-group">
+                <label>Main Heading:</label>
+                <input type="text" id="mainHeading" oninput="generateCard()" placeholder="Enter Main Heading">
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea id="description" oninput="generateCard()" placeholder="Enter Description"></textarea>
+            </div>
+
+            <!-- Add Box Buttons -->
+            <div class="action-buttons">
+                <button onclick="addBox('description')">Add Description Box</button>
+                <button onclick="addBox('character')">Add Character Box</button>
+            </div>
+
+            <!-- Boxes Form Inputs -->
+            <div id="boxFormContainer"></div>
+        </div>
+
+        <!-- Preview Column -->
+        <div class="preview-column">
+            <h2>Card Preview:</h2>
+            <div class="card-preview" id="cardPreview"></div>
+            <button style="margin-top: 20px;" onclick="exportCard()">Export as HTML</button>
+        </div>
+    </div>
+
+    <!-- Include external JS -->
+    <script src="script.js"></script>
+</body>
+</html>

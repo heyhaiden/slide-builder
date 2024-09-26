@@ -1,0 +1,158 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    background-color: #f0f2f5;
+    height: 100vh;
+    overflow: hidden; /* Prevent body from scrolling */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-column {
+    width: 50%; /* Left column takes 50% of the screen width */
+    max-height: 100vh; /* Ensure it uses the full viewport height */
+    overflow-y: auto; /* Enable scrolling within the form column */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.preview-column {
+    width: 50%; /* Right column takes 50% of the screen width */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure no scroll on the preview side */
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+input, textarea, button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 70%;  /* Make input boxes shorter */
+    max-width: 600px;  /* Ensure they're not too wide */
+}
+
+textarea {
+    height: 120px;  /* Reasonable height for description */
+    resize: vertical;
+}
+
+textarea.description-content, textarea.character-content {
+    height: 80px; /* Smaller size for content */
+}
+
+button {
+    cursor: pointer;
+    background-color: #42b4ac;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: auto; /* Prevent full-width */
+    display: inline-block; /* Ensure buttons don't take full width */
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #379c93;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.box {
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button {
+    background-color: #f44336;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.delete-button:hover {
+    background-color: #d73c2f;
+}
+
+.card-preview {
+    max-width: 960px;  /* Set width to half of 1920px for a smaller preview */
+    aspect-ratio: 16 / 9;  /* Maintain 16:9 aspect ratio */
+    overflow: hidden;  /* Hide overflow */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.banner {
+    background-color: #42b4ac;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 40%;
+    border-radius: 8px;
+}
+
+.main-heading {
+    color: #2a579a;
+    font-size: 28px;
+    margin: 20px 0;
+}
+
+.description-box, .character-box {
+    border: 2px solid #42b4ac;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.description-box .box-heading, .character-box .card-title {
+    font-size: 20px;
+    color: #42b4ac;
+    font-weight: bold;
+}
+
+.description-box .box-content, .character-box .card-description {
+    font-size: 18px;
+}
+
+.card-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-size: cover;
+    margin-right: 20px;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* Ensure space between form and preview */
+    height: 100vh; /* Ensure the container takes up the full height */
+    width: 100%;
+}
