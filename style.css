@@ -122,7 +122,9 @@ button:hover {
 .action-buttons {
     margin-top: 20px;
     display: flex;
+    align-items: center;
     gap: 10px;
+    margin-left: 90px;
 }
 
 .box {
@@ -202,11 +204,6 @@ button:hover {
     background-size: cover;
     background-position: center; /* Center the image */
     margin-right: 20px;
-}
-
-/* Ensure the content next to the image wraps correctly */
-.character-box .content {
-    flex: 1;
 }
 
 .flex-container {
