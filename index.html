@@ -15,7 +15,7 @@
         <!-- Slide Column -->
         <div class="slide-column">
             <!-- Plus button -->
-            <button class="add-slide-button" onclick="addSlide()">+</button>
+            <button class="add-slide-button" id="addSlideButton">+</button>
             <!-- Slides List -->
             <div id="slidesList"></div>
         </div>
@@ -33,8 +33,8 @@
             <h2>Slide Preview:</h2>
             <div class="card-preview" id="cardPreview"></div>
             <div class="export-buttons">
-                <button onclick="exportCard()">Export as HTML</button>
-                <button onclick="exportAllSlides()">Export All Slides</button>
+                <button id="exportCardButton">Export as HTML</button>
+                <button id="exportAllSlidesButton">Export All Slides</button>
             </div>
         </div>
     </div>

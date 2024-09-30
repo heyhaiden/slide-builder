@@ -1,30 +1,41 @@
+// Variables
 let boxCounter = 0;
 let slideCounter = 0;
 let currentSlideIndex = -1;
-let slides = [];
+const slides = [];
 
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('addSlideButton').addEventListener('click', addSlide);
+    document.getElementById('exportCardButton').addEventListener('click', exportCard);
+    document.getElementById('exportAllSlidesButton').addEventListener('click', exportAllSlides);
+});
+
+// Helper Functions
 function parseTextFormatting(text) {
     return text
         .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')  // Bold **text**
         .replace(/\*(.*?)\*/g, '<i>$1</i>');     // Italic *text*
 }
 
-// Slide object constructor
-function Slide() {
-    this.bannerTitle = '';
-    this.mainHeading = '';
-    this.description = '';
-    this.boxes = [];
+// Slide Class
+class Slide {
+    constructor() {
+        this.bannerTitle = '';
+        this.mainHeading = '';
+        this.description = '';
+        this.boxes = [];
+    }
 }
 
-// Function to generate the slide's HTML
+// Generate Slide HTML
 function generateCard() {
     if (currentSlideIndex === -1) return;
     const slide = slides[currentSlideIndex];
 
-    const bannerTitle = document.getElementById("bannerTitle").value;
-    const mainHeading = document.getElementById("mainHeading").value;
-    const description = parseTextFormatting(document.getElementById("description").value);
+    const bannerTitle = document.getElementById('bannerTitle').value;
+    const mainHeading = document.getElementById('mainHeading').value;
+    const description = parseTextFormatting(document.getElementById('description').value);
 
     slide.bannerTitle = bannerTitle;
     slide.mainHeading = mainHeading;
@@ -43,7 +54,19 @@ function generateCard() {
     boxes.forEach((box) => {
         const type = box.dataset.type;
         if (type === 'description') {
-            // ... existing code for description boxes ...
+            const heading = box.querySelector('.description-heading').value;
+            const content = parseTextFormatting(box.querySelector('.description-content').value);
+            cardHTML += `
+                <div class="description-box">
+                    <div class="box-heading">${heading}</div>
+                    <div class="box-content">${content}</div>
+                </div>
+            `;
+            slide.boxes.push({
+                type: 'description',
+                heading,
+                content
+            });
         } else if (type === 'character') {
             const heading = box.querySelector('.character-heading').value;
             const content = parseTextFormatting(box.querySelector('.character-content').value);
@@ -59,18 +82,17 @@ function generateCard() {
             `;
             slide.boxes.push({
                 type: 'character',
-                heading: heading,
-                content: content,
-                imageURL: imageURL
+                heading,
+                content,
+                imageURL
             });
         }
     });
 
-    document.getElementById("cardPreview").innerHTML = `<div class="card">${cardHTML}</div>`;
-
+    document.getElementById('cardPreview').innerHTML = `<div class="card">${cardHTML}</div>`;
 }
 
-// Function to add a new box to the form
+// Add New Box
 function addBox(type) {
     boxCounter++;
     let formHTML = '';
@@ -80,11 +102,11 @@ function addBox(type) {
                 <h3>Description Box</h3>
                 <div class="form-group">
                     <label>Heading:</label>
-                    <input type="text" class="description-heading" oninput="generateCard()">
+                    <input type="text" class="description-heading" placeholder="Enter heading" oninput="generateCard()">
                 </div>
                 <div class="form-group">
                     <label>Content:</label>
-                    <textarea class="description-content" oninput="generateCard()"></textarea>
+                    <textarea class="description-content" placeholder="Enter content" oninput="generateCard()"></textarea>
                 </div>
                 <button class="delete-button" onclick="deleteBox(${boxCounter})">Delete Box</button>
             </div>
@@ -95,15 +117,15 @@ function addBox(type) {
                 <h3>Character Box</h3>
                 <div class="form-group">
                     <label>Heading:</label>
-                    <input type="text" class="character-heading" oninput="generateCard()">
+                    <input type="text" class="character-heading" placeholder="Enter heading" oninput="generateCard()">
                 </div>
                 <div class="form-group">
                     <label>Content:</label>
-                    <textarea class="character-content" oninput="generateCard()"></textarea>
+                    <textarea class="character-content" placeholder="Enter content" oninput="generateCard()"></textarea>
                 </div>
                 <div class="form-group">
                     <label>Image URL:</label>
-                    <input type="text" class="character-image" oninput="generateCard()" placeholder="Enter image URL">
+                    <input type="text" class="character-image" placeholder="Enter image URL" oninput="generateCard()">
                 </div>
                 <button class="delete-button" onclick="deleteBox(${boxCounter})">Delete Box</button>
             </div>
@@ -113,14 +135,14 @@ function addBox(type) {
     document.getElementById('boxFormContainer').insertAdjacentHTML('beforeend', formHTML);
 }
 
-// Function to delete a box from the form
+// Delete Box
 function deleteBox(boxId) {
     const box = document.getElementById(`box-${boxId}`);
     box.remove();
     generateCard();
 }
 
-// Function to add a new slide
+// Add New Slide
 function addSlide() {
     slideCounter++;
     const slide = new Slide();
@@ -144,7 +166,7 @@ function addSlide() {
     selectSlide(slideIndex);
 }
 
-// Function to select a slide for editing
+// Select Slide for Editing
 function selectSlide(index) {
     currentSlideIndex = index;
     const slide = slides[index];
@@ -160,21 +182,21 @@ function selectSlide(index) {
     generateCard();
 }
 
-// Function to load slide data into the form
+// Load Slide Data into Form
 function loadSlideData(slide) {
     const formContainer = document.getElementById('formContainer');
     formContainer.innerHTML = `
         <div class="form-group">
             <label>Banner Title:</label>
-            <input type="text" id="bannerTitle" oninput="generateCard()" placeholder="Enter Banner Title" value="${slide.bannerTitle}">
+            <input type="text" id="bannerTitle" placeholder="Enter Banner Title" value="${slide.bannerTitle}" oninput="generateCard()">
         </div>
         <div class="form-group">
             <label>Main Heading:</label>
-            <input type="text" id="mainHeading" oninput="generateCard()" placeholder="Enter Main Heading" value="${slide.mainHeading}">
+            <input type="text" id="mainHeading" placeholder="Enter Main Heading" value="${slide.mainHeading}" oninput="generateCard()">
         </div>
         <div class="form-group">
             <label>Description:</label>
-            <textarea id="description" oninput="generateCard()" placeholder="Enter Description">${slide.description}</textarea>
+            <textarea id="description" placeholder="Enter Description" oninput="generateCard()">${slide.description}</textarea>
         </div>
 
         <!-- Add Box Buttons -->
@@ -200,7 +222,7 @@ function loadSlideData(slide) {
                     <h3>Description Box</h3>
                     <div class="form-group">
                         <label>Heading:</label>
-                        <input type="text" class="description-heading" oninput="generateCard()" value="${boxData.heading}">
+                        <input type="text" class="description-heading" value="${boxData.heading}" oninput="generateCard()">
                     </div>
                     <div class="form-group">
                         <label>Content:</label>
@@ -215,7 +237,7 @@ function loadSlideData(slide) {
                     <h3>Character Box</h3>
                     <div class="form-group">
                         <label>Heading:</label>
-                        <input type="text" class="character-heading" oninput="generateCard()" value="${boxData.heading}">
+                        <input type="text" class="character-heading" value="${boxData.heading}" oninput="generateCard()">
                     </div>
                     <div class="form-group">
                         <label>Content:</label>
@@ -223,7 +245,7 @@ function loadSlideData(slide) {
                     </div>
                     <div class="form-group">
                         <label>Image URL:</label>
-                        <input type="text" class="character-image" oninput="generateCard()" placeholder="Enter image URL" value="${boxData.imageURL}">
+                        <input type="text" class="character-image" value="${boxData.imageURL}" oninput="generateCard()">
                     </div>
                     <button class="delete-button" onclick="deleteBox(${boxCounter})">Delete Box</button>
                 </div>
@@ -259,9 +281,8 @@ function drop(e) {
         }
 
         // Update slides array
-        const temp = slides[draggedIndex];
-        slides.splice(draggedIndex, 1);
-        slides.splice(targetIndex, 0, temp);
+        const [removedSlide] = slides.splice(draggedIndex, 1);
+        slides.splice(targetIndex, 0, removedSlide);
 
         // Update slide numbers
         updateSlideNumbers();
@@ -272,7 +293,7 @@ function dragEnd() {
     draggedItem = null;
 }
 
-// Function to update slide numbers
+// Update Slide Numbers
 function updateSlideNumbers() {
     const slideItems = document.querySelectorAll('.slide-item');
     slideItems.forEach((item, index) => {
@@ -281,10 +302,10 @@ function updateSlideNumbers() {
     });
 }
 
-// Function to export current slide
+// Export Current Slide
 function exportCard() {
     if (currentSlideIndex === -1) return;
-    const cardHTMLContent = document.getElementById("cardPreview").innerHTML;
+    const cardHTMLContent = document.getElementById('cardPreview').innerHTML;
     const fullHTML = `
 <!DOCTYPE html>
 <html>
@@ -304,14 +325,10 @@ function exportCard() {
 </body>
 </html>
     `;
-    const blob = new Blob([fullHTML], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `slide${currentSlideIndex + 1}.html`;
-    link.click();
+    downloadFile(`slide${currentSlideIndex + 1}.html`, fullHTML);
 }
 
-// Function to export all slides
+// Export All Slides
 function exportAllSlides() {
     slides.forEach((slide, index) => {
         const cardHTMLContent = generateSlideHTML(slide);
@@ -334,15 +351,11 @@ function exportAllSlides() {
 </body>
 </html>
         `;
-        const blob = new Blob([fullHTML], { type: 'text/html' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `slide${index + 1}.html`;
-        link.click();
+        downloadFile(`slide${index + 1}.html`, fullHTML);
     });
 }
 
-// Function to generate slide HTML from slide data
+// Generate Slide HTML from Data
 function generateSlideHTML(slide) {
     let cardHTML = `
         <div class="banner">${slide.bannerTitle}</div>
@@ -374,8 +387,16 @@ function generateSlideHTML(slide) {
     return cardHTML;
 }
 
+// Download File Helper Function
+function downloadFile(filename, content) {
+    const blob = new Blob([content], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+}
 
-// Function to get slide styles for export
+// Get Slide Styles for Export
 function getSlideStyles() {
     return `
         body {
@@ -406,7 +427,7 @@ function getSlideStyles() {
             padding: 10px;
             font-size: 18px;
             font-weight: bold;
-            width: 40%;
+            width: fit-content;
             border-radius: 8px;
         }
         .main-heading {
