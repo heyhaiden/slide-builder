@@ -118,6 +118,7 @@ button {
     color: white;
     border: none;
     padding: 10px 20px;
+    margin-bottom: 35px;
     width: auto;
     display: inline-block;
     transition: background-color 0.3s ease;
