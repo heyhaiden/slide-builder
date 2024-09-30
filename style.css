@@ -3,28 +3,82 @@ body {
     padding: 20px;
     background-color: #f0f2f5;
     height: 100vh;
-    overflow: hidden; /* Prevent body from scrolling */
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 80px); /* Adjust for header and padding */
+    width: 100%;
+}
+
+.slide-column {
+    width: fit-content;
+    padding: 10px;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.add-slide-button {
+    width: 100%;
+    height: 60px;
+    font-size: 36px;
+    background-color: #42b4ac;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.add-slide-button:hover {
+    background-color: #379c93;
+}
+
+#slidesList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slide-item {
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.slide-item.active {
+    border-color: #42b4ac;
+}
+
+.form-column {
+    width: 45%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+}
+
+.preview-column {
+    width: 45%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .form-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-}
-
-.form-column {
-    width: 50%; /* Left column takes 50% of the screen width */
-    max-height: 100vh; /* Ensure it uses the full viewport height */
-    overflow-y: auto; /* Enable scrolling within the form column */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.preview-column {
-    width: 50%; /* Right column takes 50% of the screen width */
-    padding: 20px;
-    box-sizing: border-box;
-    overflow: hidden; /* Ensure no scroll on the preview side */
 }
 
 label {
@@ -37,17 +91,17 @@ input, textarea, button {
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
-    width: 70%;  /* Make input boxes shorter */
-    max-width: 600px;  /* Ensure they're not too wide */
+    width: 70%;
+    max-width: 600px;
 }
 
 textarea {
-    height: 120px;  /* Reasonable height for description */
+    height: 120px;
     resize: vertical;
 }
 
 textarea.description-content, textarea.character-content {
-    height: 80px; /* Smaller size for content */
+    height: 80px;
 }
 
 button {
@@ -56,8 +110,8 @@ button {
     color: white;
     border: none;
     padding: 10px 20px;
-    width: auto; /* Prevent full-width */
-    display: inline-block; /* Ensure buttons don't take full width */
+    width: auto;
+    display: inline-block;
     transition: background-color 0.3s ease;
 }
 
@@ -93,9 +147,9 @@ button:hover {
 }
 
 .card-preview {
-    max-width: 960px;  /* Set width to half of 1920px for a smaller preview */
-    aspect-ratio: 16 / 9;  /* Maintain 16:9 aspect ratio */
-    overflow: hidden;  /* Hide overflow */
+    max-width: 960px; 
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
     margin: 20px auto;
     padding: 20px;
     background-color: white;
@@ -131,18 +185,28 @@ button:hover {
     font-size: 20px;
     color: #42b4ac;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .description-box .box-content, .character-box .card-description {
     font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 10px;
 }
 
 .card-image {
+    flex-shrink: 0; /* Prevent the image from shrinking */
     width: 150px;
     height: 150px;
     border-radius: 50%;
     background-size: cover;
+    background-position: center; /* Center the image */
     margin-right: 20px;
+}
+
+/* Ensure the content next to the image wraps correctly */
+.character-box .content {
+    flex: 1;
 }
 
 .flex-container {
@@ -150,9 +214,9 @@ button:hover {
     align-items: center;
 }
 
-.container {
+.export-buttons {
+    margin-top: 20px;
     display: flex;
-    justify-content: space-between; /* Ensure space between form and preview */
-    height: 100vh; /* Ensure the container takes up the full height */
-    width: 100%;
+    justify-content: center;
+    gap: 15px;
 }
