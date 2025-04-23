@@ -2,7 +2,7 @@
 
 A professional-grade slide builder for creating consistent training materials for Learning Management Systems (LMS).
 
-![SlideBuilder](https://via.placeholder.com/1200x600/f0f0f0/42b4ac?text=SlideBuilder)
+![SlideBuilder](public/slide-builder-screenshot.png)
 
 ## 🚀 Overview
 
