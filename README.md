@@ -1,4 +1,4 @@
-# SlideBuilder
+# LMS Slide Builder
 
 A professional-grade slide builder for creating consistent training materials for Learning Management Systems (LMS).
 
